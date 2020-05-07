@@ -3,3 +3,9 @@
 //
 
 #include "Matrix.h"
+
+
+Matrix::Matrix(int rows, int cols) : MatrixBase(rows, cols) { }
+
+
+

@@ -5,6 +5,7 @@
 #ifndef SECONDASSIGNMENT_MATRIXBASE_H
 #define SECONDASSIGNMENT_MATRIXBASE_H
 
+#include <string>
 
 class MatrixBase {
 protected:
@@ -13,11 +14,14 @@ protected:
     int rows;
     int cols;
 
+    int initIndex;
+
     MatrixBase(int rows, int cols);
 
-    MatrixBase(double * data, int rows, int cols);
+    MatrixBase(double *data, int rows, int cols);
 
-    virtual double * operator*(MatrixBase &other);
+    // Destructor
+    ~MatrixBase() { delete[] data; }
 
 public:
 
@@ -31,8 +35,19 @@ public:
     // Set element
     virtual double &operator()(int r, int c);
 
+    // Bulk initialization
+    void setAllMatrixAt(double value);
 
+    // List initialization
+    virtual MatrixBase &operator,(double val);
 
+    // List initialization starter
+    virtual MatrixBase &operator<<=(double val);
+
+    // Multiplication
+    virtual MatrixBase operator*(MatrixBase &other);
+
+    std::string toString();
 };
 
 

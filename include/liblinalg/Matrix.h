@@ -5,8 +5,14 @@
 #ifndef SECONDASSIGNMENT_MATRIX_H
 #define SECONDASSIGNMENT_MATRIX_H
 
+#include "MatrixBase.h"
+#include "Vector.h"
 
-class Matrix {
+class Matrix : public MatrixBase {
+
+public:
+    Matrix(int rows, int cols);
+
 
 };
 

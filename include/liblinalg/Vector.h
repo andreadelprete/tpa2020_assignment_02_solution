@@ -6,7 +6,13 @@
 #define SECONDASSIGNMENT_VECTOR_H
 
 
-class Vector {
+#include "MatrixBase.h"
+#include "Matrix.h"
+
+class Vector : public MatrixBase {
+
+public:
+    Vector(int size, bool vertical = true);
 
 };
 

@@ -7,12 +7,16 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 # LIBRARIES SECTION
-add_library(linalglib STATIC
+add_library(liblinalg STATIC
         src/MatrixBase.cpp
         src/Vector.cpp
         src/Matrix.cpp) # STATIC
-target_include_directories(linalglib PRIVATE include/linalglib)
+target_include_directories(liblinalg PRIVATE include/liblinalg)
 
+# Basic main section
+add_executable(mainEntry main.cpp)
+target_include_directories(mainEntry PRIVATE include)
+target_link_libraries(mainEntry liblinalg)
 
 # TESTS SECTION
 # Basically makes CMake read the CMakeLists.txt file contained in tests
