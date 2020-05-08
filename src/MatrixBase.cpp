@@ -5,7 +5,7 @@
 #include <cassert>
 #include <ios>
 #include <iomanip>
-#include "MatrixBase.h"
+#include "liblinalg/MatrixBase.h"
 
 MatrixBase::MatrixBase(int rows, int cols) : size(rows * cols), rows(rows), cols(cols) {
     data = new double[size];
@@ -17,7 +17,7 @@ MatrixBase::MatrixBase(double *data, int rows, int cols) : size(rows * cols), ro
     initIndex = 0;
 }
 
-MatrixBase::MatrixBase(MatrixBase &other) {
+MatrixBase::MatrixBase(const MatrixBase &other) {
     size = other.size;
     rows = other.rows;
     cols = other.cols;
@@ -31,15 +31,19 @@ MatrixBase::MatrixBase(MatrixBase &other) {
 }
 
 double MatrixBase::operator()(int r, int c) const {
+    assert(r >= 0 && c >= 0);
+    assert(r < rows && c < cols);
     return data[c + r * cols];
 }
 
 double &MatrixBase::operator()(int r, int c) {
+    assert(r >= 0 && c >= 0);
+    assert(r < rows && c < cols);
     return data[c + r * cols];
 }
 
 
-void MatrixBase::setAllMatrixAt(double value) {
+void MatrixBase::setAllValuesAt(double value) {
     for (int i = 0; i < size; ++i) {
         data[i] = value;
     }
@@ -75,7 +79,7 @@ std::string MatrixBase::toString() {
     return stream.str();
 }
 
-double *MatrixBase::matrixMultiplication(double *B, int rb, int cb) {
+double *MatrixBase::matrixMultiplication(const double *B, int rb, int cb) {
     assert(cols == rb);
 
     auto *res = new double[rows * cb];
@@ -93,7 +97,7 @@ double *MatrixBase::matrixMultiplication(double *B, int rb, int cb) {
     return res;
 }
 
-double *MatrixBase::matrixAddition(double *B, int rb, int cb, bool sub) {
+double *MatrixBase::matrixAddition(const double *B, int rb, int cb, bool sub) {
     assert(rows == rb && cols == cb);
 
     auto *res = new double[rows * cb];
@@ -115,53 +119,6 @@ double *MatrixBase::matrixAddition(double *B, int rb, int cb, bool sub) {
     return res;
 }
 
-MatrixBase MatrixBase::operator*(MatrixBase &other) {
-
-    double *res = matrixMultiplication(other.data, other.rows, other.cols);
-
-    return MatrixBase(res, rows, other.cols);
-}
-
-MatrixBase &MatrixBase::operator*=(MatrixBase &other) {
-
-    double *res = matrixMultiplication(other.data, other.rows, other.cols);
-    delete[] data;
-    data = res;
-
-    return *this;
-}
-
-MatrixBase MatrixBase::operator+(MatrixBase &other) {
-
-    double *res = matrixAddition(other.data, other.rows, other.cols);
-
-    return MatrixBase(res, rows, cols);
-}
-
-MatrixBase &MatrixBase::operator+=(MatrixBase &other) {
-
-    double *res = matrixAddition(other.data, other.rows, other.cols);
-
-    delete[] data;
-    data = res;
-
-    return *this;
-}
-
-MatrixBase MatrixBase::operator-(MatrixBase &other) {
-    double *res = matrixAddition(other.data, other.rows, other.cols, true);
-
-    return MatrixBase(res, rows, cols);
-}
-
-MatrixBase &MatrixBase::operator-=(MatrixBase &other) {
-    double *res = matrixAddition(other.data, other.rows, other.cols, true);
-
-    delete[] data;
-    data = res;
-
-    return *this;
-}
 
 
 

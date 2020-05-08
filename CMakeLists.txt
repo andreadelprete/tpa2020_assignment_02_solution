@@ -11,7 +11,7 @@ add_library(liblinalg STATIC
         src/MatrixBase.cpp
         src/Vector.cpp
         src/Matrix.cpp) # STATIC
-target_include_directories(liblinalg PRIVATE include/liblinalg)
+target_include_directories(liblinalg PRIVATE include)
 
 # Basic main section
 add_executable(mainEntry main.cpp)

@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "liblinalg/Matrix.h"
+#include "liblinalg/Vector.h"
 
 int main() {
     Matrix A(2, 2);
@@ -14,7 +15,7 @@ int main() {
     V <<= 10, 11;
     std::cout << V.toString() << std::endl;
 
-    auto R = V * A;
+    Vector R = V * A;
     std::cout << R.toString() << std::endl;
 
 }
