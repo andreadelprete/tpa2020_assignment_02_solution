@@ -10,8 +10,11 @@ int main() {
     A <<= 1, 2, 3, 4;
     std::cout << A.toString() << std::endl;
 
-    Vector V(5, false);
-    V <<= 10, 11, 12, 13, 14;
+    Vector V(2, false);
+    V <<= 10, 11;
     std::cout << V.toString() << std::endl;
+
+    auto R = V * A;
+    std::cout << R.toString() << std::endl;
 
 }
