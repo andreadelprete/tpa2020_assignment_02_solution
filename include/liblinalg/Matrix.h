@@ -6,38 +6,41 @@
 #define SECONDASSIGNMENT_MATRIX_H
 
 #include "MatrixBase.h"
-#include "Vector.h"
 
 class Vector;
 
 class Matrix : public MatrixBase {
-
-
 public:
     Matrix(int rows, int cols);
 
     Matrix(double *data, int rows, int cols);
 
-    // Multiplication
-    Matrix operator*(Matrix &other);
+    Matrix &transposeInPlace();
 
-    Vector operator*(Vector &other);
+    Matrix transpose();
+
+    Matrix &operator=(const Matrix &other);
+
+    // Multiplication
+    Matrix operator*(const Matrix &other);
+
+    Vector operator*(const Vector &other);
 
 
     // Mul and assign
-    Matrix &operator*=(MatrixBase &other);
+    Matrix &operator*=(const MatrixBase &other);
 
     // Sum
-    Matrix operator+(MatrixBase &other);
+    Matrix operator+(const MatrixBase &other);
 
     // Sum and assign
-    Matrix &operator+=(MatrixBase &other);
+    Matrix &operator+=(const MatrixBase &other);
 
     // Subtraction
-    Matrix operator-(MatrixBase &other);
+    Matrix operator-(const MatrixBase &other);
 
     // Sub and assign
-    Matrix &operator-=(MatrixBase &other);
+    Matrix &operator-=(const MatrixBase &other);
 
 };
 

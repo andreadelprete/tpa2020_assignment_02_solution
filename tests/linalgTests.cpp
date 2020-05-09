@@ -41,6 +41,24 @@ TEST_CASE("LinAlgTests", "[testLinAlg]") {
         }
     }
 
+    SECTION("transpose") {
+        Vector V(2);
+        V.transposeInPlace();
+
+        REQUIRE((V.getCols() == 2 && V.getRows() == 1));
+
+        Matrix A(2, 3);
+        A <<= 1, 2, 3, 4, 5, 6;
+        A.transposeInPlace();
+        REQUIRE((A.getCols() == 2 && A.getRows() == 3));
+        REQUIRE(A(0, 0) == 1);
+        REQUIRE(A(0, 1) == 4);
+        REQUIRE(A(1, 0) == 2);
+        REQUIRE(A(1, 1) == 5);
+        REQUIRE(A(2, 0) == 3);
+        REQUIRE(A(2, 1) == 6);
+    }
+
     SECTION("OperatorCommaAndShiftLeftAssign") {
         Matrix A(2, 2);
         A <<= 1, 2, 3, 4;
@@ -53,14 +71,49 @@ TEST_CASE("LinAlgTests", "[testLinAlg]") {
     SECTION("OperatorMul") {
         Matrix A(2, 2);
         A <<= 1, 2, 3, 4;
-        Vector V(2, false);
+        Vector V(2);
         V <<= 10, 11;
 
-        Vector R = V * A;
+        Vector R = V.transpose() * A;
 
         REQUIRE(R(0) == 43.0);
         REQUIRE(R(1) == 64.0);
 
+        Vector D = A * V;
+        REQUIRE(D(0) == 32.0);
+        REQUIRE(D(1) == 74.0);
+
+        Matrix S = D.transpose() * D;
+        REQUIRE((S.getRows() == 1 && S.getCols() == 1));
+        REQUIRE(S(0, 0) == 6500);
+
+        A = D * D.transpose();
+        REQUIRE(A(0, 0) == 1024);
+        REQUIRE(A(0, 1) == 2368);
+        REQUIRE(A(1, 0) == 2368);
+        REQUIRE(A(1, 1) == 5476);
     }
 
+    SECTION("OperatorSumSub") {
+        Matrix A1(2, 2);
+        Matrix A2(2, 2);
+        Matrix A3(2, 2);
+        A1 <<= 1, 2, 3, 4;
+        A2 <<= 1, 2, 3, 4;
+        A3 <<= 4, 3, 2, 1;
+
+        Matrix A4 = A1 - A2;
+        for (int r = 0; r < A4.getRows(); ++r) {
+            for (int c = 0; c < A4.getCols(); ++c) {
+                REQUIRE(A4(r, c) == 0.0);
+            }
+        }
+
+        Matrix A5 = A1 + A3;
+        for (int r = 0; r < A5.getRows(); ++r) {
+            for (int c = 0; c < A5.getCols(); ++c) {
+                REQUIRE(A5(r, c) == 5.0);
+            }
+        }
+    }
 }

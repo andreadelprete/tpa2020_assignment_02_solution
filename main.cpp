@@ -17,5 +17,4 @@ int main() {
 
     Vector R = V * A;
     std::cout << R.toString() << std::endl;
-
 }

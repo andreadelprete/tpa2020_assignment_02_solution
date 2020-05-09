@@ -4,6 +4,7 @@
 
 #include <cassert>
 #include "liblinalg/Vector.h"
+#include "liblinalg/Matrix.h"
 
 
 Vector::Vector(int size, bool vertical) : MatrixBase(size, 1) {
@@ -30,21 +31,21 @@ double &Vector::operator()(int i) {
 }
 
 
-Vector Vector::operator*(Matrix &other) {
+Vector Vector::operator*(const Matrix &other) {
 
     double *res = matrixMultiplication(other.getData(), other.getRows(), other.getCols());
 
     return Vector(res, rows, other.getCols());
 }
 
-Matrix Vector::operator*(Vector &other) {
+Matrix Vector::operator*(const Vector &other) {
     double *res = matrixMultiplication(other.getData(), other.getRows(), other.getCols());
 
     return Matrix(res, rows, other.getCols());
 }
 
 
-Vector &Vector::operator*=(MatrixBase &other) {
+Vector &Vector::operator*=(const MatrixBase &other) {
 
     double *res = matrixMultiplication(other.getData(), other.getRows(), other.getCols());
 
@@ -54,14 +55,14 @@ Vector &Vector::operator*=(MatrixBase &other) {
     return *this;
 }
 
-Vector Vector::operator+(MatrixBase &other) {
+Vector Vector::operator+(const MatrixBase &other) {
 
     double *res = matrixAddition(other.getData(), other.getRows(), other.getCols());
 
     return Vector(res, rows, cols);
 }
 
-Vector &Vector::operator+=(MatrixBase &other) {
+Vector &Vector::operator+=(const MatrixBase &other) {
 
     double *res = matrixAddition(other.getData(), other.getRows(), other.getCols());
 
@@ -71,13 +72,13 @@ Vector &Vector::operator+=(MatrixBase &other) {
     return *this;
 }
 
-Vector Vector::operator-(MatrixBase &other) {
+Vector Vector::operator-(const MatrixBase &other) {
     double *res = matrixAddition(other.getData(), other.getRows(), other.getCols());
 
     return Vector(res, rows, cols);
 }
 
-Vector &Vector::operator-=(MatrixBase &other) {
+Vector &Vector::operator-=(const MatrixBase &other) {
     double *res = matrixAddition(other.getData(), other.getRows(), other.getCols());
 
     delete[] data;
@@ -85,6 +86,35 @@ Vector &Vector::operator-=(MatrixBase &other) {
 
     return *this;
 }
+
+Vector &Vector::transposeInPlace() {
+    int temp = cols;
+    cols = rows;
+    rows = temp;
+
+    return *this;
+}
+
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "ArgumentSelectionDefects"
+
+Vector Vector::transpose() {
+    auto res = new double[size];
+    for (int i = 0; i < size; ++i) {
+        res[i] = data[i];
+    }
+    return Vector(res, cols, rows);
+}
+
+#pragma clang diagnostic pop
+
+Vector &Vector::operator=(const Vector &other) {
+    assignementOperator(other);
+
+    return *this;
+}
+
+
 
 
 

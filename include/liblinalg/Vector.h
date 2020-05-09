@@ -7,7 +7,6 @@
 
 
 #include "MatrixBase.h"
-#include "Matrix.h"
 
 class Matrix;
 
@@ -18,6 +17,13 @@ public:
 
     Vector(double *data, int rows, int cols);
 
+    int getSize() { return size; }
+
+    Vector &transposeInPlace();
+
+    Vector transpose();
+
+    Vector &operator=(const Vector &other);
 
     // Access using single index
     virtual double operator()(int i) const;
@@ -26,25 +32,25 @@ public:
     virtual double &operator()(int i);
 
     // Multiplication
-    Vector operator*(Matrix &other);
+    Vector operator*(const Matrix &other);
 
-    Matrix operator*(Vector &other);
+    Matrix operator*(const Vector &other);
 
 
     // Mul and assign
-    Vector &operator*=(MatrixBase &other);
+    Vector &operator*=(const MatrixBase &other);
 
     // Sum
-    Vector operator+(MatrixBase &other);
+    Vector operator+(const MatrixBase &other);
 
     // Sum and assign
-    Vector &operator+=(MatrixBase &other);
+    Vector &operator+=(const MatrixBase &other);
 
     // Subtraction
-    Vector operator-(MatrixBase &other);
+    Vector operator-(const MatrixBase &other);
 
     // Sub and assign
-    Vector &operator-=(MatrixBase &other);
+    Vector &operator-=(const MatrixBase &other);
 };
 
 

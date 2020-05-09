@@ -119,6 +119,16 @@ double *MatrixBase::matrixAddition(const double *B, int rb, int cb, bool sub) {
     return res;
 }
 
+void MatrixBase::assignementOperator(const MatrixBase &other) {
+    if (this != &other) {
+        assert(rows == other.rows && cols == other.cols);
+
+        for (int i = 0; i < size; ++i) {
+            data[i] = other.data[i];
+        }
+    }
+}
+
 
 
 

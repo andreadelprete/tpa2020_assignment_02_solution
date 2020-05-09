@@ -24,6 +24,7 @@ protected:
 
     double *matrixAddition(const double B[], int rb, int cb, bool sub = false);
 
+    void assignementOperator(const MatrixBase &other);
 public:
 
     // Destructor
@@ -31,11 +32,11 @@ public:
 
     MatrixBase(const MatrixBase &other);
 
-    int getCols() const { return cols; }
+    [[nodiscard]] int getCols() const { return cols; }
 
-    int getRows() const { return rows; }
+    [[nodiscard]] int getRows() const { return rows; }
 
-    const double *getData() const { return data; }
+    [[nodiscard]] const double *getData() const { return data; }
 
 
     // Get element
