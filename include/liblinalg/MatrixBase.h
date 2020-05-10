@@ -9,7 +9,7 @@
 
 class MatrixBase {
 protected:
-    double *data;
+    double *data = nullptr;
     int size;
     int rows;
     int cols;
@@ -20,9 +20,9 @@ protected:
 
     MatrixBase(double *data, int rows, int cols);
 
-    double *matrixMultiplication(const double B[], int rb, int cb);
+    double *matrixMultiplication(const double B[], int rb, int cb) const;
 
-    double *matrixAddition(const double B[], int rb, int cb, bool sub = false);
+    double *matrixAddition(const double B[], int rb, int cb, bool sub = false) const;
 
     void assignementOperator(const MatrixBase &other);
 public:

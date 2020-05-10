@@ -23,11 +23,11 @@ MatrixBase::MatrixBase(const MatrixBase &other) {
     cols = other.cols;
     initIndex = other.initIndex;
 
+    delete[] data;
     data = new double[size];
     for (int i = 0; i < size; ++i) {
         data[i] = other.data[i];
     }
-    assert(true); // Should be never called
 }
 
 double MatrixBase::operator()(int r, int c) const {
@@ -73,13 +73,13 @@ std::string MatrixBase::toString() {
         for (int c = 0; c < cols; ++c) {
             stream << std::fixed << std::setprecision(2) << data[r * cols + c] << " ";
         }
-        stream << std::endl;
+        //stream << std::endl;
     }
 
     return stream.str();
 }
 
-double *MatrixBase::matrixMultiplication(const double *B, int rb, int cb) {
+double *MatrixBase::matrixMultiplication(const double *B, int rb, int cb) const {
     assert(cols == rb);
 
     auto *res = new double[rows * cb];
@@ -97,7 +97,7 @@ double *MatrixBase::matrixMultiplication(const double *B, int rb, int cb) {
     return res;
 }
 
-double *MatrixBase::matrixAddition(const double *B, int rb, int cb, bool sub) {
+double *MatrixBase::matrixAddition(const double *B, int rb, int cb, bool sub) const {
     assert(rows == rb && cols == cb);
 
     auto *res = new double[rows * cb];

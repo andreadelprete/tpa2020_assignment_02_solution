@@ -12,14 +12,14 @@ Matrix::Matrix(int rows, int cols) : MatrixBase(rows, cols) {}
 Matrix::Matrix(double *data, int rows, int cols) : MatrixBase(data, rows, cols) {}
 
 
-Matrix Matrix::operator*(const Matrix &other) {
+Matrix Matrix::operator*(const Matrix &other) const {
 
     double *res = matrixMultiplication(other.data, other.rows, other.cols);
 
     return Matrix(res, rows, other.cols);
 }
 
-Vector Matrix::operator*(const Vector &other) {
+Vector Matrix::operator*(const Vector &other) const {
     double *res = matrixMultiplication(other.getData(), other.getRows(), other.getCols());
 
     return Vector(res, rows, other.getCols());
@@ -36,7 +36,7 @@ Matrix &Matrix::operator*=(const MatrixBase &other) {
     return *this;
 }
 
-Matrix Matrix::operator+(const MatrixBase &other) {
+Matrix Matrix::operator+(const MatrixBase &other) const {
 
     double *res = matrixAddition(other.getData(), other.getRows(), other.getCols());
 
@@ -53,7 +53,7 @@ Matrix &Matrix::operator+=(const MatrixBase &other) {
     return *this;
 }
 
-Matrix Matrix::operator-(const MatrixBase &other) {
+Matrix Matrix::operator-(const MatrixBase &other) const {
     double *res = matrixAddition(other.getData(), other.getRows(), other.getCols(), true);
 
     return Matrix(res, rows, cols);
@@ -107,6 +107,17 @@ Matrix &Matrix::operator=(const Matrix &other) {
     assignementOperator(other);
 
     return *this;
+}
+
+void Matrix::reshape(int rows, int cols) {
+    assert(rows > 0 && cols > 0);
+
+    delete[] data;
+
+    size = rows * cols;
+    data = new double[size];
+    this->rows = rows;
+    this->cols = cols;
 }
 
 

@@ -13,10 +13,19 @@ add_library(liblinalg STATIC
         src/Matrix.cpp) # STATIC
 target_include_directories(liblinalg PRIVATE include)
 
+add_library(libsimcon STATIC
+        src/Controller.cpp
+        src/Simulator.cpp)
+target_include_directories(libsimcon PRIVATE include)
+target_link_libraries(libsimcon liblinalg)
+
+
 # Basic main section
 add_executable(mainEntry main.cpp)
 target_include_directories(mainEntry PRIVATE include)
-target_link_libraries(mainEntry liblinalg)
+target_link_libraries(mainEntry
+        liblinalg
+        libsimcon)
 
 # TESTS SECTION
 # Basically makes CMake read the CMakeLists.txt file contained in tests

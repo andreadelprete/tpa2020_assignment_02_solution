@@ -31,14 +31,14 @@ double &Vector::operator()(int i) {
 }
 
 
-Vector Vector::operator*(const Matrix &other) {
+Vector Vector::operator*(const Matrix &other) const {
 
     double *res = matrixMultiplication(other.getData(), other.getRows(), other.getCols());
 
     return Vector(res, rows, other.getCols());
 }
 
-Matrix Vector::operator*(const Vector &other) {
+Matrix Vector::operator*(const Vector &other) const {
     double *res = matrixMultiplication(other.getData(), other.getRows(), other.getCols());
 
     return Matrix(res, rows, other.getCols());
@@ -55,7 +55,7 @@ Vector &Vector::operator*=(const MatrixBase &other) {
     return *this;
 }
 
-Vector Vector::operator+(const MatrixBase &other) {
+Vector Vector::operator+(const MatrixBase &other) const {
 
     double *res = matrixAddition(other.getData(), other.getRows(), other.getCols());
 
@@ -72,7 +72,7 @@ Vector &Vector::operator+=(const MatrixBase &other) {
     return *this;
 }
 
-Vector Vector::operator-(const MatrixBase &other) {
+Vector Vector::operator-(const MatrixBase &other) const {
     double *res = matrixAddition(other.getData(), other.getRows(), other.getCols());
 
     return Vector(res, rows, cols);
@@ -112,6 +112,22 @@ Vector &Vector::operator=(const Vector &other) {
     assignementOperator(other);
 
     return *this;
+}
+
+void Vector::resize(int size, bool vertical) {
+    assert(size > 0);
+
+    delete[] data;
+
+    data = new double[size];
+
+    if (vertical) {
+        rows = size;
+        cols = 1;
+    } else {
+        rows = 1;
+        cols = size;
+    }
 }
 
 

@@ -17,11 +17,13 @@ public:
 
     Vector(double *data, int rows, int cols);
 
-    int getSize() { return size; }
+    int getSize() const { return size; }
 
     Vector &transposeInPlace();
 
     Vector transpose();
+
+    void resize(int size, bool vertical = true);
 
     Vector &operator=(const Vector &other);
 
@@ -32,22 +34,22 @@ public:
     virtual double &operator()(int i);
 
     // Multiplication
-    Vector operator*(const Matrix &other);
+    Vector operator*(const Matrix &other) const;
 
-    Matrix operator*(const Vector &other);
+    Matrix operator*(const Vector &other) const;
 
 
     // Mul and assign
     Vector &operator*=(const MatrixBase &other);
 
     // Sum
-    Vector operator+(const MatrixBase &other);
+    Vector operator+(const MatrixBase &other) const;
 
     // Sum and assign
     Vector &operator+=(const MatrixBase &other);
 
     // Subtraction
-    Vector operator-(const MatrixBase &other);
+    Vector operator-(const MatrixBase &other) const;
 
     // Sub and assign
     Vector &operator-=(const MatrixBase &other);
