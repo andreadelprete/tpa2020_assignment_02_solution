@@ -9,9 +9,9 @@
 
 class Simulable {
 public:
-    virtual void simulate() = 0;
+    virtual void simulate(Vector &u) = 0;
 
-    virtual Vector *getX() const = 0;
+    virtual const Vector &getX() const = 0;
 };
 
 

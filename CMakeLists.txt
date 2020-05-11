@@ -22,6 +22,7 @@ target_link_libraries(libsimcon liblinalg)
 
 # Basic main section
 add_executable(mainEntry main.cpp)
+target_sources(mainEntry PRIVATE src/ClosedLoop.cpp)
 target_include_directories(mainEntry PRIVATE include)
 target_link_libraries(mainEntry
         liblinalg

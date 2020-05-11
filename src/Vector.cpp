@@ -14,8 +14,11 @@ Vector::Vector(int size, bool vertical) : MatrixBase(size, 1) {
     }
 }
 
-Vector::Vector(double *data, int rows, int cols) : MatrixBase(data, rows, cols) {
-
+Vector::Vector(double *data, int size, bool vertical) : MatrixBase(data, size, 1) {
+    if (!vertical) {
+        rows = 1;
+        cols = size;
+    }
 }
 
 double Vector::operator()(int i) const {
@@ -35,7 +38,7 @@ Vector Vector::operator*(const Matrix &other) const {
 
     double *res = matrixMultiplication(other.getData(), other.getRows(), other.getCols());
 
-    return Vector(res, rows, other.getCols());
+    return Vector(res, other.getCols(), false);
 }
 
 Matrix Vector::operator*(const Vector &other) const {
@@ -45,21 +48,11 @@ Matrix Vector::operator*(const Vector &other) const {
 }
 
 
-Vector &Vector::operator*=(const MatrixBase &other) {
-
-    double *res = matrixMultiplication(other.getData(), other.getRows(), other.getCols());
-
-    delete[] data;
-    data = res;
-
-    return *this;
-}
-
 Vector Vector::operator+(const MatrixBase &other) const {
 
     double *res = matrixAddition(other.getData(), other.getRows(), other.getCols());
 
-    return Vector(res, rows, cols);
+    return Vector(res, size, cols == 1);
 }
 
 Vector &Vector::operator+=(const MatrixBase &other) {
@@ -73,13 +66,13 @@ Vector &Vector::operator+=(const MatrixBase &other) {
 }
 
 Vector Vector::operator-(const MatrixBase &other) const {
-    double *res = matrixAddition(other.getData(), other.getRows(), other.getCols());
+    double *res = matrixAddition(other.getData(), other.getRows(), other.getCols(), true);
 
-    return Vector(res, rows, cols);
+    return Vector(res, size, cols == 1);
 }
 
 Vector &Vector::operator-=(const MatrixBase &other) {
-    double *res = matrixAddition(other.getData(), other.getRows(), other.getCols());
+    double *res = matrixAddition(other.getData(), other.getRows(), other.getCols(), true);
 
     delete[] data;
     data = res;
@@ -103,7 +96,7 @@ Vector Vector::transpose() {
     for (int i = 0; i < size; ++i) {
         res[i] = data[i];
     }
-    return Vector(res, cols, rows);
+    return Vector(res, size, rows == 1);
 }
 
 #pragma clang diagnostic pop
@@ -120,6 +113,7 @@ void Vector::resize(int size, bool vertical) {
     delete[] data;
 
     data = new double[size];
+    this->size = size;
 
     if (vertical) {
         rows = size;

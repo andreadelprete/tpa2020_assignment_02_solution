@@ -7,7 +7,7 @@
 #include "liblinalg/Vector.h"
 #include "libsimcon/Simulator.h"
 #include "libsimcon/Controller.h"
-#include "batchSimultaion.h"
+#include "ClosedLoop.h"
 
 #define N 20
 
@@ -17,30 +17,29 @@ int main() {
     A <<= 1, 2, 3, 4;
     std::cout << A.toString() << std::endl;
 
-    Vector V(2, false);
+    Vector V(2);
     V <<= 10, 11;
     std::cout << V.toString() << std::endl;
 
-    Vector R = V * A;
+    Vector R = V.transpose() * A;
     std::cout << R.toString() << std::endl
               << "------------------------------------" << std::endl;
 
-    // Examples of libsimcom
-    A <<= -2, 1, 0, 1;
+//    // Examples of libsimcom
+    A <<= 0.5, 0.1, 0, -0.2;
     Matrix B(2, 3);
-    B <<= 1, -1, 0, 0, 1, -2;
+    B <<= 1, 0, 0.5, 0, 1, 0;
     Matrix K(3, 2);
-    K <<= 1, 2, 3, 4, 5, 6;
+    K <<= 0.1600, 0.0800,
+            0, -0.4000,
+            0.0800, 0.0400;
     Vector x0(2);
-    x0.setAllValuesAt(0.01);
+    x0.setAllValuesAt(10);
 
     Controller c(K);
-    Simulator s(A, B, x0, c);
-    auto simulators = new Simulable *[1];
-    simulators[0] = &s;
+    Simulator s(A, B, x0);
 
-    Vector ***res = batchSimulation(simulators, 1, N);
-    deallocateSimData(res, 1, N);
-
-    delete[] simulators;
+    ClosedLoop cl(s, c);
+    cl.completeSimulation(10);
+    std::cout << cl.getState().toString() << std::endl;
 }

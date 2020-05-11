@@ -15,15 +15,13 @@ class Simulator : public Simulable {
     Matrix B;
     Vector x;
 
-    Controllable *controller;
-
 public:
 
-    Simulator(Matrix &A, Matrix &B, Vector &x0, Controllable &controller);
+    Simulator(Matrix &A, Matrix &B, Vector &x0);
 
-    void simulate() override;
+    void simulate(Vector &u) override;
 
-    Vector *getX() const override;
+    [[nodiscard]] const Vector &getX() const override;
 };
 
 

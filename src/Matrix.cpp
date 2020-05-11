@@ -22,19 +22,9 @@ Matrix Matrix::operator*(const Matrix &other) const {
 Vector Matrix::operator*(const Vector &other) const {
     double *res = matrixMultiplication(other.getData(), other.getRows(), other.getCols());
 
-    return Vector(res, rows, other.getCols());
+    return Vector(res, rows, true);
 }
 
-
-Matrix &Matrix::operator*=(const MatrixBase &other) {
-
-    double *res = matrixMultiplication(other.getData(), other.getRows(), other.getCols());
-
-    delete[] data;
-    data = res;
-
-    return *this;
-}
 
 Matrix Matrix::operator+(const MatrixBase &other) const {
 
@@ -109,7 +99,7 @@ Matrix &Matrix::operator=(const Matrix &other) {
     return *this;
 }
 
-void Matrix::reshape(int rows, int cols) {
+void Matrix::resize(int rows, int cols) {
     assert(rows > 0 && cols > 0);
 
     delete[] data;

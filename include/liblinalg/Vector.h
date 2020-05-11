@@ -15,9 +15,9 @@ class Vector : public MatrixBase {
 public:
     explicit Vector(int size, bool vertical = true);
 
-    Vector(double *data, int rows, int cols);
+    Vector(double *data, int size, bool vertical = true);
 
-    int getSize() const { return size; }
+    [[nodiscard]] int getSize() const { return size; }
 
     Vector &transposeInPlace();
 
@@ -30,7 +30,7 @@ public:
     // Access using single index
     virtual double operator()(int i) const;
 
-    // Modify using single infex
+    // Modify using single index
     virtual double &operator()(int i);
 
     // Multiplication
@@ -38,9 +38,6 @@ public:
 
     Matrix operator*(const Vector &other) const;
 
-
-    // Mul and assign
-    Vector &operator*=(const MatrixBase &other);
 
     // Sum
     Vector operator+(const MatrixBase &other) const;

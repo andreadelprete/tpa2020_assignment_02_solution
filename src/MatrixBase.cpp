@@ -73,7 +73,7 @@ std::string MatrixBase::toString() {
         for (int c = 0; c < cols; ++c) {
             stream << std::fixed << std::setprecision(2) << data[r * cols + c] << " ";
         }
-        //stream << std::endl;
+        stream << std::endl;
     }
 
     return stream.str();

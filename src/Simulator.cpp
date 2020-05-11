@@ -4,24 +4,15 @@
 
 #include "libsimcon/Simulator.h"
 
-Simulator::Simulator(Matrix &A, Matrix &B, Vector &x0, Controllable &controller) :
-        A(A), B(B), x(x0) {
-
-    // Making a copy would be better but how
-    this->controller = &controller;
-}
+Simulator::Simulator(Matrix &A, Matrix &B, Vector &x0) :
+        A(A), B(B), x(x0) {}
 
 
-void Simulator::simulate() {
-    Vector u = controller->control(x);
+void Simulator::simulate(Vector &u) {
     x = (A * x) + (B * u);
 }
 
-Vector *Simulator::getX() const {
-    auto res = new Vector(x.getSize());
-
-    res->operator=(x);
-
-    return res;
+const Vector &Simulator::getX() const {
+    return x;
 }
 

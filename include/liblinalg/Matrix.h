@@ -19,7 +19,7 @@ public:
 
     Matrix transpose();
 
-    void reshape(int rows, int cols);
+    void resize(int rows, int cols);
 
     Matrix &operator=(const Matrix &other);
 
@@ -27,10 +27,6 @@ public:
     Matrix operator*(const Matrix &other) const;
 
     Vector operator*(const Vector &other) const;
-
-
-    // Mul and assign
-    Matrix &operator*=(const MatrixBase &other);
 
     // Sum
     Matrix operator+(const MatrixBase &other) const;
@@ -43,7 +39,6 @@ public:
 
     // Sub and assign
     Matrix &operator-=(const MatrixBase &other);
-
 };
 
 
