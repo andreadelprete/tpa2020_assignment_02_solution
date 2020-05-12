@@ -9,12 +9,12 @@
 
 class MatrixBase {
 protected:
-    double *data = nullptr;
-    int size;
-    int rows;
-    int cols;
+    double *data = nullptr; // pointer to the data
+    int size;               // total size of the matrix
+    int rows;               // number of rows
+    int cols;               // number of columns
 
-    int initIndex;
+    int initIndex;          // index to be used for the list initialization with operators <<= and ,
 
     MatrixBase(int rows, int cols);
 
@@ -22,9 +22,17 @@ protected:
 
     double *matrixMultiplication(const double B[], int rb, int cb) const;
 
+    /**
+     * Sum (or subtract) to the given matrix
+     * @param B Matrix to sub or subtract
+     * @param rb number of rows
+     * @param cb number of columns
+     * @param sub If true then perform subtraction, if false then perform addition
+     * @return
+     */
     double *matrixAddition(const double B[], int rb, int cb, bool sub = false) const;
 
-    void assignementOperator(const MatrixBase &other);
+    void assignmentOperator(const MatrixBase &other);
 public:
 
     // Destructor
@@ -32,11 +40,11 @@ public:
 
     MatrixBase(const MatrixBase &other);
 
-    [[nodiscard]] int getCols() const { return cols; }
+    int getCols() const { return cols; }
 
-    [[nodiscard]] int getRows() const { return rows; }
+    int getRows() const { return rows; }
 
-    [[nodiscard]] const double *getData() const { return data; }
+    const double *getData() const { return data; }
 
 
     // Get element
@@ -45,16 +53,24 @@ public:
     // Set element
     virtual double &operator()(int r, int c);
 
-    // Bulk initialization
+    /**
+     * Initialize all entries of the MatrixBase to the same specified value
+     */
     void setAllValuesAt(double value);
 
-    // List initialization
+    /**
+     * Operator used for initializing a MatrixBase ith the following syntax:
+     * A <<= 1, 2, 3;
+     */
     virtual MatrixBase &operator,(double val);
 
-    // List initialization starter
+    /**
+     * Operator used for initializing a MatrixBase ith the following syntax:
+     * MatrixBase a <<= 1, 2, 3;
+     */
     virtual MatrixBase &operator<<=(double val);
 
-
+    // Return a string representation of the MatrixBase
     std::string toString();
 };
 

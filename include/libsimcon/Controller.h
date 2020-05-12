@@ -15,9 +15,9 @@ class Controller : public Controllable {
 public:
     explicit Controller(Matrix &K);
 
-    [[nodiscard]] Vector control(const Vector &x) override;
+    Vector control(const Vector &x);
 
-    [[nodiscard]] int getLoopCounter() const override { return loopCount; };
+    int getLoopCounter() const { return loopCount; };
 };
 
 

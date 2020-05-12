@@ -19,9 +19,17 @@ public:
 
     Simulator(Matrix &A, Matrix &B, Vector &x0);
 
-    void simulate(Vector &u) override;
+    /**
+     * Simulate the discrete-time system
+     *     x[n+1] = A*x[n] + B*u[n]
+     */
+    void simulate(Vector &u);
 
-    [[nodiscard]] const Vector &getX() const override;
+    /**
+     * Get the system state
+     * @return
+     */
+    const Vector &getX() const;
 };
 
 

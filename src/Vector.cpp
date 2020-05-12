@@ -102,7 +102,7 @@ Vector Vector::transpose() {
 #pragma clang diagnostic pop
 
 Vector &Vector::operator=(const Vector &other) {
-    assignementOperator(other);
+    assignmentOperator(other);
 
     return *this;
 }

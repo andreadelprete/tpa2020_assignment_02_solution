@@ -94,7 +94,7 @@ Matrix Matrix::transpose() {
 
 
 Matrix &Matrix::operator=(const Matrix &other) {
-    assignementOperator(other);
+    assignmentOperator(other);
 
     return *this;
 }

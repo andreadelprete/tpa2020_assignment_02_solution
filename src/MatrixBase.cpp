@@ -5,6 +5,9 @@
 #include <cassert>
 #include <ios>
 #include <iomanip>
+#include <string>
+#include <sstream>
+#include <iostream>
 #include "liblinalg/MatrixBase.h"
 
 MatrixBase::MatrixBase(int rows, int cols) : size(rows * cols), rows(rows), cols(cols) {
@@ -119,7 +122,7 @@ double *MatrixBase::matrixAddition(const double *B, int rb, int cb, bool sub) co
     return res;
 }
 
-void MatrixBase::assignementOperator(const MatrixBase &other) {
+void MatrixBase::assignmentOperator(const MatrixBase &other) {
     if (this != &other) {
         assert(rows == other.rows && cols == other.cols);
 

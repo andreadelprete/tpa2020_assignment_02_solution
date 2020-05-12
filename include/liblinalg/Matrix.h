@@ -15,8 +15,15 @@ public:
 
     Matrix(double *data, int rows, int cols);
 
+    /**
+     * Convert this Matrix into its own transpose. This should be equivalent
+     * to: a = a.transpose();
+     */
     Matrix &transposeInPlace();
 
+    /**
+     * Compute the transpose of the Matrix.
+     */
     Matrix transpose();
 
     void resize(int rows, int cols);
@@ -37,7 +44,7 @@ public:
     // Subtraction
     Matrix operator-(const MatrixBase &other) const;
 
-    // Sub and assign
+    // Subtract and assign
     Matrix &operator-=(const MatrixBase &other);
 };
 

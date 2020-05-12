@@ -33,12 +33,12 @@ TEST_CASE("LinAlgTestsMatBase", "[testLinAlgMatBase]") {
         REQUIRE(A(1, 1) == 4);
     }
 
-    SECTION("toString") {
-        Vector V(2, false);
-        V <<= 10, 11;
-        // Possible problems in Windows: replace \n with \r\n
-        REQUIRE(V.toString() == "10.00 11.00 \n");
-    }
+//    SECTION("toString") {
+//        Vector V(2, false);
+//        V <<= 10, 11;
+//        // Possible problems in Windows: replace \n with \r\n
+//        REQUIRE(V.toString() == "10.00 11.00 \n");
+//    }
 
     SECTION("CopyConstructor") {
         Vector V(2);

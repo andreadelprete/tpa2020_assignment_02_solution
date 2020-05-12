@@ -13,14 +13,26 @@ class Matrix;
 class Vector : public MatrixBase {
 
 public:
+    /**
+     * Construct a Vector of the specified size
+     * @param size
+     * @param vertical True if the vector is a column vector, false otherwise
+     */
     explicit Vector(int size, bool vertical = true);
 
     Vector(double *data, int size, bool vertical = true);
 
-    [[nodiscard]] int getSize() const { return size; }
+    int getSize() const { return size; }
 
+    /**
+     * Convert this Matrix into its own transpose. This should be equivalent
+     * to: a = a.transpose();
+     */
     Vector &transposeInPlace();
 
+    /**
+     * Compute the transpose of the Matrix.
+     */
     Vector transpose();
 
     void resize(int size, bool vertical = true);
@@ -48,7 +60,7 @@ public:
     // Subtraction
     Vector operator-(const MatrixBase &other) const;
 
-    // Sub and assign
+    // Subtract and assign
     Vector &operator-=(const MatrixBase &other);
 };
 

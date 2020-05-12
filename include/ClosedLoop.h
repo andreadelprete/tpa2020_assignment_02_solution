@@ -9,7 +9,9 @@
 #include "libsimcon/Simulable.h"
 #include "libsimcon/Controllable.h"
 
-
+/**
+ * Class to simulate a closed-loop system composed of a simulator and a controller.
+ */
 class ClosedLoop {
     Simulable *s;
     Controllable *c;
@@ -17,13 +19,14 @@ class ClosedLoop {
 public:
     ClosedLoop(Simulable &s, Controllable &c) : s(&s), c(&c) {}
 
-    void simulationStep() const;
+    // Take a single simulation step
+    void simulationStep();
 
-    void completeSimulation(int nSteps) const;
+    // Perform a complete simulation of nSteps time steps
+    void completeSimulation(int nSteps);
 
-    Vector getState();
-
-
+    // Get the current state of the system
+    Vector getState() const;
 };
 
 
