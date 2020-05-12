@@ -6,13 +6,9 @@ In questa repository lo studente può già trovare i file `CMakeLists.txt` (da n
 
 ## Uso dei file header
 Nei file header sono già presenti delle dichiarazioni parziali delle classi da implementare.
-Queste dichiarazioni riportano
-* nome della funzione
-* nome e descrizione dei parametri
-
-È compito dello studente completare le dichiarazioni aggiungendo:
-* tipo di ritorno 
-* tipo dei parametri
+A differenza del primo compito, in questo compito gli header sono praticamente completi.
+Chiaramente lo studente è però libero di aggiungere metodi ed attributi a piacere, che potrebbero
+semplificare l'implementazione delle classi.
 
 ## Uso dei test
 Lo studente è incoraggiato a servirsi dei test per verificare che la sua implementazione delle funzioni sia corretta.
@@ -29,20 +25,22 @@ Ecco alcune regole di base da seguire nello svolgimento del compito:
 * Per rappresentare numeri reali si devono utilizzare variabili di tipo `double`. 
 * Tutte le classi devono utilizzare allocazione di memoria dinamica per poter funzionare anche con dimensioni non note a tempo di compilazione. Particolare attenzione deve quindi essere posta alla gestione della memoria. 
 * Controlli sulle dimensioni delle matrici/vettori devono essere implementati per assicurare la consistenza degli oggetti in ogni momento.
-* Tutte le classi devono implementare costruttore, disctruttore, costruttore di copia, operatore di assegnamento.
+* Tutte le classi devono implementare costruttore, distruttore, costruttore di copia, operatore di assegnamento.
 
 
 ## Parte 1: LINEAR ALGEBRA
 L'obiettivo di questa parte è sviluppare un piccolo libreria di algebra lineare, che servirà poi per lo sviluppo della Parte 2 del compito.
 
-La libreria consiste principalmente in due classi: `Vector` e `Matrix`. Le matrici devono essere salvate in memoria per riga (ordine [row-major](https://en.wikipedia.org/wiki/Row-_and_column-major_order)). In queste classi lo studente dovrà utilizzare:
+La libreria consiste principalmente in due classi: `Vector` e `Matrix`, entrambe classi derivate di `MatrixBase`. 
+Le matrici devono essere salvate in memoria per riga (ordine [row-major](https://en.wikipedia.org/wiki/Row-_and_column-major_order)). 
+In queste classi lo studente dovrà utilizzare:
 * INCAPSULAMENTO: per assicurarsi che i dati degli oggetti non siano modificabili dall'esterno lasciando l'oggetto in uno stato inconsistente (ad es: modificando il puntatore alla memoria contenente i dati della matrice/vettore)
-* EREDITARIETÀ: le classi `Vector` e `Matrix` dovranno certamente essere simili e condividere grossa parte del loro codice; per evitare di riscrivere lo stesso codice lo studente dovrà utilizzare l'ereditarietà, eventualmente considerando anche l'opzione di introdurre una terza classe per contenere le parti di codice comune.
-* POLIMORFISMO: se la gerarchia tra `Vector` e `Matrix` è progettata in maniera opportuna, lo studente dovrebbe riuscire ad implementare la maggior parte delle operazioni (come somma e moltiplicazione) solo una volta, ed in maniera tale che esse possano operare sia su `Vector` che su `Matrix`.
-* OPERATOR OVERLOADING: per rendere la libreria più facilmente utilizzabile, tutte le operazioni tra vettori e matrici devono essere implementate tramite i seguenti operatori: =, +, *, -, +=, -=, *=
+* EREDITARIETÀ: le classi `Vector` e `Matrix` dovranno certamente essere simili e condividere grossa parte del loro codice; per evitare di riscrivere lo stesso codice lo studente dovrà sfruttare l'ereditarietà.
+* OPERATOR OVERLOADING: per rendere la libreria più facilmente utilizzabile, le operazioni tra vettori e matrici devono essere implementate tramite operatori come: =, +, *, -, +=, -=
 
 ## Parte 2: LINEAR DYNAMICAL SYSTEMS
-L'obiettivo di questa parte è implementare una semplice libreria per la simulazione di sistemi dinamici lineari e controllori lineari, basata sulla libreria di algebra lineare della prima parte.
+L'obiettivo di questa parte è implementare una semplice libreria per la simulazione di sistemi dinamici lineari e controllori lineari, 
+basata sulla libreria di algebra lineare della prima parte.
 
 Le classi principali di questa parte sono: `Controller` e `Simulator`.
 
@@ -78,3 +76,5 @@ dove
 La classe `Controller` deve permettere di:
 * leggere/scrivere la matrice `K`
 * calcolare il vettore di controllo `u` dato lo stato del sistema `x`
+
+Si invita lo studente a leggere gli header file per maggiori dettagli.
